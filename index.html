@@ -1,0 +1,67 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- You need to include Owl carousel files here 
+http://smashingboxes.github.io/OwlCarousel2/
+-->
+
+<?!= include('owl_js'); ?>
+<?!= include('owl_css'); ?>
+<?!= include('owl_transitions'); ?>
+
+
+<?!= include('style_css'); ?>
+
+
+<? var data = getData(); ?>
+<? var rating = getRatings(); ?>
+<? var enrollment = getEnrolment(); ?>
+
+<div id="viewport" class="owl-carousel b-Chumbo">
+<? for (var i = 0; i < data.length; i++) { ?>
+<? for (var j = 0; j < data[i].length && data[i][j] != "None" && data[i][j].length < 100; j++) { ?>
+<div> 
+<div><div class="rating star<?= rating[i][j] ?>"></div><h1><?= data[i][j] ?></h1></div>
+
+<!-- this displays the tax the user is enrolled for -->
+<div class="enrolment">(<?= enrollment[i][j] ?> user)</div>
+<!-- end enrolment -->
+</div>
+<? } ?>
+<? } ?>
+</div>
+<div>
+
+
+<script>
+$( document ).ready(function() {
+console.log( "ready!" );
+
+// carousel setup
+$(".owl-carousel").owlCarousel({
+navigation : false,
+slideSpeed : 2500,
+paginationSpeed : 1500,
+singleItem: true,
+autoHeight: true,
+pagination: false,
+loop:true,
+autoPlay:true,
+autoPlayTimeout:1000,
+autoPlayHoverPause:false,
+afterMove: top_align,
+transitionStyle : "goDown"
+});
+
+function top_align() {
+$(window).scrollTop(0);
+console.log('move');
+}
+
+
+$(".owl-item").each(function() {
+var rating = $(this).find(".rating").attr('class');
+$(this).addClass(rating);
+});
+
+});
+</script>
